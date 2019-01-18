@@ -244,7 +244,7 @@ describe('<DropZone />', () => {
       expect(caption).toHaveLength(0);
     });
 
-    it('renders a Caption containing the overlayText on medium screens', () => {
+    it('renders a Caption containing the overlayText when the bounding container is a small size', () => {
       setBoundingClientRect('medium');
       const dropZone = mountWithAppProvider(
         <DropZone overlayText={overlayText} />,
@@ -254,7 +254,7 @@ describe('<DropZone />', () => {
       expect(captionText.contains(overlayText)).toBe(true);
     });
 
-    it('renders a Caption containing the overlayText on large screens', () => {
+    it('renders a Caption containing the overlayText when the bounding container is a large size', () => {
       setBoundingClientRect('large');
       const dropZone = mountWithAppProvider(
         <DropZone overlayText={overlayText} />,
@@ -264,7 +264,7 @@ describe('<DropZone />', () => {
       expect(captionText.contains(overlayText)).toBe(true);
     });
 
-    it('renders a DisplayText containing the overlayText on extra-large screens', () => {
+    it('renders a DisplayText containing the overlayText on when the bounding container is an extra large size', () => {
       setBoundingClientRect('extraLarge');
       const dropZone = mountWithAppProvider(
         <DropZone overlayText={overlayText} />,
@@ -289,7 +289,7 @@ describe('<DropZone />', () => {
       expect(caption).toHaveLength(0);
     });
 
-    it('renders a Caption containing the overlayText on medium screens', () => {
+    it('renders a Caption containing the overlayText when the bounding container is a medium size', () => {
       setBoundingClientRect('medium');
       const dropZone = mountWithAppProvider(
         <DropZone errorOverlayText={errorOverlayText} accept="image/gif" />,
@@ -299,7 +299,7 @@ describe('<DropZone />', () => {
       expect(captionText.contains(errorOverlayText)).toBe(true);
     });
 
-    it('renders a Caption containing the overlayText on large screens', () => {
+    it('renders a Caption containing the overlayText when the bounding container is a large size', () => {
       setBoundingClientRect('large');
       const dropZone = mountWithAppProvider(
         <DropZone errorOverlayText={errorOverlayText} accept="image/gif" />,
@@ -309,7 +309,7 @@ describe('<DropZone />', () => {
       expect(captionText.contains(errorOverlayText)).toBe(true);
     });
 
-    it('renders a DisplayText containing the overlayText on extra-large screens', () => {
+    it('renders a DisplayText containing the overlayText when the bounding container is an extra large size', () => {
       setBoundingClientRect('extraLarge');
       const dropZone = mountWithAppProvider(
         <DropZone errorOverlayText={errorOverlayText} accept="image/gif" />,
@@ -334,7 +334,7 @@ function setBoundingClientRect(size: keyof typeof widths) {
   Element.prototype.getBoundingClientRect = jest.fn(() => {
     return {
       width: widths[size],
-      height: 100,
+      height: widths[size],
       top: 0,
       left: 0,
       bottom: 0,
