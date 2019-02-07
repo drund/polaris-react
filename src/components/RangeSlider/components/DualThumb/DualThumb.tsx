@@ -197,7 +197,10 @@ export default class DualThumb extends React.Component<Props, State> {
         >
           <div className={styles.Wrapper} id={id}>
             {prefixMarkup}
-            <div className={trackWrapperClassName}>
+            <div
+              className={trackWrapperClassName}
+              onClick={this.handleTrackClick}
+            >
               <div
                 className={styles.Track}
                 style={cssVars}
@@ -396,6 +399,32 @@ export default class DualThumb extends React.Component<Props, State> {
         },
         this.dispatchValue,
       );
+    }
+  }
+
+  @autobind
+  private handleTrackClick(event: React.MouseEvent) {
+    const clickXPosition = this.actualXPosition(event.clientX);
+    let xPositionLower = this.props.min;
+    let xPositionUpper = this.props.max;
+
+    if (this.thumbLower.current && this.thumbUpper.current) {
+      xPositionLower = this.actualXPosition(
+        this.thumbLower.current.getBoundingClientRect().left,
+      );
+      xPositionUpper = this.actualXPosition(
+        this.thumbUpper.current.getBoundingClientRect().left,
+      );
+    }
+
+    if (clickXPosition > xPositionLower && clickXPosition < xPositionUpper) {
+      return;
+    }
+
+    if (clickXPosition < xPositionLower) {
+      this.setValue([clickXPosition, this.state.value[1]], Control.Lower);
+    } else if (clickXPosition > xPositionUpper) {
+      this.setValue([this.state.value[0], clickXPosition], Control.Upper);
     }
   }
 
